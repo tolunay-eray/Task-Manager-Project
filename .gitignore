@@ -6,3 +6,4 @@ __pycache__/
 
 # JSON task data file
 tasks.json
+.idea/
