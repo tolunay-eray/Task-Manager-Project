@@ -9,16 +9,15 @@ def initialize_json_file():
 def load_tasks():
     try:
         with open("tasks.json", "r") as f:
-            return json.load(f) #jsonu python okuyamaz ve python veri tipine dict list vs'ye dönüştürdük
+            return json.load(f) # converted json to python data type
     except json.JSONDecodeError:
-        return []  # Eğer JSON hatası varsa, boş liste döneriz.
+        return []
     except FileNotFoundError:
-        return []  # Eğer dosya yoksa, yine boş liste döneriz.
-
+        return []
 
 def save_tasks(tasks):
     with open("tasks.json","w") as f:
-        json.dump(tasks,f,indent=4)  #dumps string döndürür ama dosyaya yazmak için dump kullanırız
+        json.dump(tasks,f,indent=4)
 
 def add_task():
     description = input("Task Description:")
@@ -35,13 +34,13 @@ def list_tasks():
     else:
         for i ,task in enumerate(tasks):
             status = "✅" if task["completed"] else "❌"
-            print(f"{i + 1}. {task['description']} [{status}]") # i 0dan başlıyor ondan dolayı +1
+            print(f"{i + 1}. {task['description']} [{status}]")
 
 def mark_task_done():
-    list_tasks() # önce görevleri listeliyoruz
+    list_tasks() # First we list the tasks
     try:
-        index = int(input("Completed task number: ")) - 1 # pythonda index 0dan başladığından 1 yazınca 0. indexi alırız
-        tasks = load_tasks()    # görev listesi dosyadan yüklenir
+        index = int(input("Completed task number: ")) - 1 # index starts from 0 in python
+        tasks = load_tasks()
         tasks[index]["completed"] = True
         save_tasks(tasks)
         print("✔️ Task marked as completed.")
@@ -49,11 +48,11 @@ def mark_task_done():
         print("❌ Invalid selection.")
 
 def delete_task():
-    list_tasks()     # önce görevleri listeledik
+    list_tasks()
     try:
         index = int(input("Silinecek görev numarası: ")) - 1
-        tasks = load_tasks()  # görevleri yükledik
-        removed = tasks.pop(index)     # indexteki görevi sildik ve  kaydettik
+        tasks = load_tasks()
+        removed = tasks.pop(index)
         save_tasks(tasks)
         print(f"🗑️ '{removed['description']}' deleted.")
     except (ValueError, IndexError):
@@ -80,10 +79,10 @@ def main():
         elif choice == "4":
             delete_task()
         elif choice == "5":
-            print("👋 Görüşmek üzere!")
+            print("👋 See You Later!")
             break
         else:
-            print("❌ Geçersiz seçim.")
+            print("❌ Invalid Choice.")
 
 if __name__ == "__main__":
     main()
