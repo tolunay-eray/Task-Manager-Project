@@ -2,7 +2,7 @@ import os
 import json
 
 def initialize_json_file():
-    if not os.path.exists("tasks.json"): # dosyanın varlığını kontrol ediyor
+    if not os.path.exists("tasks.json"): # Checks if the file exists
         with open("tasks.json","w") as f:
             json.dump([],f)
 
